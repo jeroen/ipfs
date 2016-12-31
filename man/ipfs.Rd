@@ -21,6 +21,9 @@ Connect to the inter-planetary file system.
 }
 \examples{
 # From 'getting started'
+}
+\references{
+\url{https://ipfs.io/ipfs/QmR7GSQM93Cx5eAg6a6yRzNde1FQv7uL6X1o4k7zrJa3LX/ipfs.draft3.pdf}
 ipfs_version()
 ipfs_get('QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG')
 }
