@@ -1,0 +1,13 @@
+Package: ipfs
+Type: Package
+Title: Connect to the Inter Planetary File System
+Version: 0.1
+Author: Jeroen Ooms
+Maintainer: Jeroen Ooms <jeroen.ooms@stat.ucla.edu>
+Description: IPFS is a content-addressable, peer-to-peer hypermedia distribution
+    protocol in which the nodes form a distributed file system.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 5.0.1.9000
+Imports: curl, jsonlite
