@@ -3,6 +3,7 @@
 #' Connect to the inter-planetary file system.
 #'
 #' @export
+#' @name ipfs
 #' @rdname ipfs
 #' @param key a multihash key
 #' @examples # From 'getting started'
