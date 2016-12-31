@@ -3,11 +3,17 @@
 \name{ipfs}
 \alias{ipfs}
 \alias{ipfs_get}
+\alias{ipfs_data}
+\alias{ipfs_download}
 \alias{ipfs_version}
 \alias{ipfs_webui}
 \title{IPFS}
 \usage{
 ipfs_get(key)
+
+ipfs_data(key)
+
+ipfs_download(key, path = NULL)
 
 ipfs_version()
 
@@ -15,16 +21,21 @@ ipfs_webui()
 }
 \arguments{
 \item{key}{a multihash key}
+
+\item{path}{filename to save download.}
 }
 \description{
 Connect to the inter-planetary file system.
 }
 \examples{
 # From 'getting started'
+ipfs_download('QmR7GSQM93Cx5eAg6a6yRzNde1FQv7uL6X1o4k7zrJa3LX/ipfs.draft3.pdf')
+utils::browseURL('ipfs.draft3.pdf')
 }
 \references{
 \url{https://ipfs.io/ipfs/QmR7GSQM93Cx5eAg6a6yRzNde1FQv7uL6X1o4k7zrJa3LX/ipfs.draft3.pdf}
 ipfs_version()
 ipfs_get('QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG')
+ipfs_data('QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/readme')
 }
 
