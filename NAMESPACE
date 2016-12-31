@@ -2,3 +2,4 @@
 
 export(ipfs_get)
 export(ipfs_version)
+export(ipfs_webui)

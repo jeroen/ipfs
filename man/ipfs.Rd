@@ -4,11 +4,14 @@
 \alias{ipfs}
 \alias{ipfs_get}
 \alias{ipfs_version}
+\alias{ipfs_webui}
 \title{IPFS}
 \usage{
 ipfs_get(key)
 
 ipfs_version()
+
+ipfs_webui()
 }
 \arguments{
 \item{key}{a multihash key}

@@ -19,20 +19,25 @@ ipfs_version <- function(){
   ipfs_json("version")
 }
 
+#' @export
+#' @rdname ipfs
+ipfs_webui <- function(){
+  ipfs_version() #check that demon is online
+  utils::browseURL(ipfs_url("webui"))
+}
+
 ipfs_raw <- function(command, ...){
   params <- list(...)
   ipfs_fetch(command, params)
 }
 
 ipfs_json <- function(command, ...){
-  params <- list(...)
-  params$enc <- "json"
-  data <- ipfs_fetch(command, params)
+  data <- ipfs_raw(command, enc = "json", ...)
   jsonlite::fromJSON(rawToChar(data))
 }
 
 ipfs_fetch <- function(command, params){
-  url <- paste0("http://127.0.0.1:5001/api/v0/", command)
+  url <- ipfs_url("api/v0", command)
   if(length(params)){
     str <- paste(names(params), as.character(params), collapse = "&", sep = "=")
     url <- paste(url, str, sep = "?")
@@ -41,4 +46,8 @@ ipfs_fetch <- function(command, params){
   if(req$status_code >= 400)
     stop(sprintf("HTTP %s", rawToChar(req$content)), call. = FALSE)
   req$content
+}
+
+ipfs_url <- function(...){
+  paste("http://127.0.0.1:5001", ..., sep = "/")
 }
