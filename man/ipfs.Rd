@@ -3,21 +3,33 @@
 \name{ipfs}
 \alias{ipfs}
 \alias{ipfs_get}
+\alias{ipfs_ls}
 \alias{ipfs_data}
+\alias{ipfs_swarm}
+\alias{ipfs_stats}
 \alias{ipfs_download}
-\alias{ipfs_version}
+\alias{ipfs_info}
 \alias{ipfs_webui}
+\alias{ipfs_commands}
 \title{IPFS}
 \usage{
 ipfs_get(key)
 
+ipfs_ls(key)
+
 ipfs_data(key)
+
+ipfs_swarm()
+
+ipfs_stats()
 
 ipfs_download(key, path = NULL)
 
-ipfs_version()
+ipfs_info()
 
 ipfs_webui()
+
+ipfs_commands()
 }
 \arguments{
 \item{key}{a multihash key}
@@ -29,13 +41,15 @@ Connect to the inter-planetary file system.
 }
 \examples{
 # From 'getting started'
+ipfs_info()
+ipfs_get('QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG')
+ipfs_data('QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/readme')
+
 ipfs_download('QmR7GSQM93Cx5eAg6a6yRzNde1FQv7uL6X1o4k7zrJa3LX/ipfs.draft3.pdf')
 utils::browseURL('ipfs.draft3.pdf')
 }
 \references{
-\url{https://ipfs.io/ipfs/QmR7GSQM93Cx5eAg6a6yRzNde1FQv7uL6X1o4k7zrJa3LX/ipfs.draft3.pdf}
-ipfs_version()
-ipfs_get('QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG')
-ipfs_data('QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/readme')
+IPFS api: \url{https://ipfs.io/docs/api/}
+Draft paper: \url{https://ipfs.io/ipfs/QmR7GSQM93Cx5eAg6a6yRzNde1FQv7uL6X1o4k7zrJa3LX/ipfs.draft3.pdf}
 }
 
