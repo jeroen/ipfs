@@ -3,21 +3,30 @@
 \name{ipfs}
 \alias{ipfs}
 \alias{ipfs_get}
+\alias{ipfs_add}
 \alias{ipfs_ls}
 \alias{ipfs_data}
+\alias{ipfs_cat}
 \alias{ipfs_swarm}
 \alias{ipfs_stats}
 \alias{ipfs_download}
 \alias{ipfs_info}
+\alias{ipfs_config}
+\alias{ipfs_browse}
 \alias{ipfs_webui}
 \alias{ipfs_commands}
+\alias{ipfs_server}
 \title{IPFS}
 \usage{
 ipfs_get(key)
 
+ipfs_add(files)
+
 ipfs_ls(key)
 
 ipfs_data(key)
+
+ipfs_cat(key)
 
 ipfs_swarm()
 
@@ -27,14 +36,26 @@ ipfs_download(key, path = NULL)
 
 ipfs_info()
 
+ipfs_config()
+
+ipfs_browse(key, gateway = "https://ipfs.io/ipfs/")
+
 ipfs_webui()
 
 ipfs_commands()
+
+ipfs_server(new_url = NULL)
 }
 \arguments{
 \item{key}{a multihash key}
 
+\item{files}{path(s) of files to add}
+
 \item{path}{filename to save download.}
+
+\item{gateway}{any IPFS gateway server}
+
+\item{new_url}{set a different API server. Default is "http://127.0.0.1:5001"}
 }
 \description{
 Connect to the inter-planetary file system.
@@ -44,9 +65,12 @@ Connect to the inter-planetary file system.
 ipfs_info()
 ipfs_get('QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG')
 ipfs_data('QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/readme')
-
 ipfs_download('QmR7GSQM93Cx5eAg6a6yRzNde1FQv7uL6X1o4k7zrJa3LX/ipfs.draft3.pdf')
 utils::browseURL('ipfs.draft3.pdf')
+# Publish a file!
+writeLines("This is a test!", tmp <- tempfile())
+out <- ipfs_add(tmp)
+ipfs_browse(out$hash)
 }
 \references{
 IPFS api: \url{https://ipfs.io/docs/api/}

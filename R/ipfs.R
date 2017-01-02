@@ -12,9 +12,24 @@
 #' ipfs_info()
 #' ipfs_get('QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG')
 #' ipfs_data('QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/readme')
-#'
 ipfs_get <- function(key){
   ipfs_json("object/get", arg = key)
+}
+
+#' @export
+#' @rdname ipfs
+#' @param files path(s) of files to add
+ipfs_add <- function(files){
+  post <- lapply(files, function(x){
+    curl::form_file(normalizePath(x, mustWork = TRUE))
+  })
+  names(post) <- basename(files)
+  data <- ipfs_raw("add", post = post)
+  con <- rawConnection(data)
+  on.exit(close(con))
+  df <- jsonlite::stream_in(con, verbose = FALSE)
+  names(df) <- tolower(names(df))
+  df
 }
 
 #' @export
@@ -30,6 +45,14 @@ ipfs_data <- function(key){
   if(identical(buf, as.raw(c(0x08, 0x01))))
     stop("Not a data block")
   return(buf)
+}
+
+#' @export
+#' @rdname ipfs
+ipfs_cat <- function(key){
+  buf <- ipfs_data(key)
+  cat(rawToChar(buf))
+  invisible(buf)
 }
 
 #' @export
@@ -75,9 +98,28 @@ ipfs_info <- function(){
 
 #' @export
 #' @rdname ipfs
+ipfs_config <- function(){
+  ipfs_json("config/show")
+}
+
+#' @export
+#' @rdname ipfs
+#' @param gateway any IPFS gateway server
+#' @examples # Publish a file!
+#' writeLines("This is a test!", tmp <- tempfile())
+#' out <- ipfs_add(tmp)
+#' ipfs_browse(out$hash)
+ipfs_browse <- function(key, gateway = "https://ipfs.io/ipfs/"){
+  url <- paste0(gateway, key)
+  utils::browseURL(url)
+  return(url)
+}
+
+#' @export
+#' @rdname ipfs
 ipfs_webui <- function(){
   ipfs_info() #check that demon is online
-  utils::browseURL(ipfs_url("webui"))
+  utils::browseURL(ipfs_api("webui"))
 }
 
 #' @export
@@ -94,9 +136,9 @@ ipfs_commands <- function(){
   invisible(lapply(data[[2]], print_tree, indent = 2))
 }
 
-ipfs_raw <- function(command, ...){
+ipfs_raw <- function(command, ..., post = NULL){
   params <- list(...)
-  ipfs_fetch(command, params)
+  ipfs_fetch(command, params, post)
 }
 
 ipfs_json <- function(command, ...){
@@ -104,18 +146,40 @@ ipfs_json <- function(command, ...){
   jsonlite::fromJSON(rawToChar(data))
 }
 
-ipfs_fetch <- function(command, params){
-  url <- ipfs_url("api/v0", command)
+ipfs_fetch <- function(command, params, post = NULL){
+  url <- ipfs_api("api/v0", command)
+  h <- curl::new_handle()
   if(length(params)){
     str <- paste(names(params), as.character(params), collapse = "&", sep = "=")
     url <- paste(url, str, sep = "?")
   }
-  req <- curl::curl_fetch_memory(url)
+  if(length(post)){
+    curl::handle_setform(h, .list = as.list(post))
+  }
+  req <- curl::curl_fetch_memory(url, handle = h)
   if(req$status_code >= 400)
     stop(sprintf("HTTP %s", rawToChar(req$content)), call. = FALSE)
   req$content
 }
 
-ipfs_url <- function(...){
-  paste("http://127.0.0.1:5001", ..., sep = "/")
+
+#' @export
+#' @rdname ipfs
+#' @param new_url set a different API server. Default is "http://127.0.0.1:5001"
+ipfs_server <- local({
+  provider_url <- "http://127.0.0.1:5001"
+  function(new_url = NULL){
+    if(length(new_url)){
+      new_url <- sub("/$", "", new_url)
+      req <- curl::curl_fetch_memory(paste0(new_url, "/api/v0/version"))
+      if(req$status_code != 200)
+        stop(sprintf("Failed to connect (HTTP %d)", req$status_code), call. = FALSE)
+      provider_url <<- new_url
+    }
+    return(provider_url)
+  }
+})
+
+ipfs_api <- function(...){
+  paste(ipfs_server(), ..., sep = "/")
 }
