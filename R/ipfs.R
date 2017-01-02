@@ -90,10 +90,9 @@ ipfs_download <- function(key, path = NULL){
 #' @export
 #' @rdname ipfs
 ipfs_info <- function(){
-  list(
-    version = ipfs_json("version"),
-    id = ipfs_json("id")
-  )
+  version <- ipfs_json("version")
+  id <- ipfs_json("id")
+  c(id, version)
 }
 
 #' @export
@@ -105,10 +104,6 @@ ipfs_config <- function(){
 #' @export
 #' @rdname ipfs
 #' @param gateway any IPFS gateway server
-#' @examples # Publish a file!
-#' writeLines("This is a test!", tmp <- tempfile())
-#' out <- ipfs_add(tmp)
-#' ipfs_browse(out$hash)
 ipfs_browse <- function(key, gateway = "https://ipfs.io/ipfs/"){
   url <- paste0(gateway, key)
   utils::browseURL(url)
