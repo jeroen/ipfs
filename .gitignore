@@ -1,6 +1,6 @@
 .Rproj.user
 .Rhistory
-inst/doc
+inst
 readme.html
 tests/testthat/*.html
 ipfs.draft3.pdf

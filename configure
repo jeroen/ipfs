@@ -1,17 +1,3 @@
 #!/bin/sh
-osType=$(uname)
-case "$osType" in
-  "Darwin")
-    echo "Running on Mac OSX."
-  ;;
-  "Linux")
-    echo "Running Linux."
-  ;;
-  "FreeBSD")
-    echo "Running Linux."
-  ;;
-  *)
-    echo "Unsupported OS, exiting"
-    exit
-  ;;
-esac
+${R_HOME}/bin/Rscript --vanilla tools/download_ipfs.R
+exit 0

@@ -2,3 +2,4 @@
 ^\.Rproj\.user$
 readme.md
 ipfs.draft3.pdf
+^inst$
