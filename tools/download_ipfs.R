@@ -1,3 +1,12 @@
+has_ipfs <- function(){
+  identical(0L, system2("ipfs", "version", stderr = FALSE))
+}
+
+if(has_ipfs()){
+  cat("ipfs found on the PATH!\n")
+  quit("no")
+}
+
 if(file.exists("inst/bin/go-ipfs/ipfs")){
   quit("no")
 }
