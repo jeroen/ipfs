@@ -1,0 +1,17 @@
+#!/bin/sh
+osType=$(uname)
+case "$osType" in
+  "Darwin")
+    echo "Running on Mac OSX."
+  ;;
+  "Linux")
+    echo "Running Linux."
+  ;;
+  "FreeBSD")
+    echo "Running Linux."
+  ;;
+  *)
+    echo "Unsupported OS, exiting"
+    exit
+  ;;
+esac
