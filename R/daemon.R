@@ -2,7 +2,7 @@ daemon <- local({
   pid <- NULL
   start <- function(){
     if(!is.null(pid))
-      stop("IPFS already started. Run ipfs_stop() first to restart", call. = FALSE)
+      base::stop("IPFS already started. Run ipfs_stop() first to restart", call. = FALSE)
     pid <<- sys::exec_with_pid("ipfs", c("daemon", "--init"))
   }
 
