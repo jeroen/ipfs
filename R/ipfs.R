@@ -9,6 +9,7 @@
 #' @references IPFS api: \url{https://ipfs.io/docs/api/}
 #' Draft paper: \url{https://ipfs.io/ipfs/QmR7GSQM93Cx5eAg6a6yRzNde1FQv7uL6X1o4k7zrJa3LX/ipfs.draft3.pdf}
 #' @examples # From 'getting started'
+#' ipfs_daemon(TRUE)
 #' ipfs_info()
 #' ipfs_get('QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG')
 #' ipfs_data('QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/readme')
@@ -78,7 +79,7 @@ ipfs_stats <- function(){
 #' @rdname ipfs
 #' @param path filename to save download.
 #' @examples ipfs_download('QmR7GSQM93Cx5eAg6a6yRzNde1FQv7uL6X1o4k7zrJa3LX/ipfs.draft3.pdf')
-#' utils::browseURL('ipfs.draft3.pdf')
+#' # utils::browseURL('ipfs.draft3.pdf')
 ipfs_download <- function(key, path = NULL){
   if(!length(path))
     path <- basename(key)

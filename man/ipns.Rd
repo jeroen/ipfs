@@ -48,4 +48,3 @@ ipfs_resolve('ipfs.io')
 \references{
 \url{https://github.com/ipfs/examples/tree/master/examples/ipns#readme}
 }
-

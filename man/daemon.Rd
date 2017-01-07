@@ -4,10 +4,12 @@
 \alias{ipfs_daemon}
 \title{IPFS daemon}
 \usage{
-ipfs_daemon()
+ipfs_daemon(restart = FALSE)
+}
+\arguments{
+\item{restart}{force a restart if ipfs is already running}
 }
 \description{
 Start and stop the ipfs server. This is automatically done when attaching
 the package.
 }
-

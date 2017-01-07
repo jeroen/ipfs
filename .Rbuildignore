@@ -3,3 +3,5 @@
 readme.md
 ipfs.draft3.pdf
 ^inst$
+^\.travis\.yml$
+^appveyor\.yml$
