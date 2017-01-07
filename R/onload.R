@@ -5,7 +5,8 @@
     ipfsdir <- file.path(libname, pkgname, "bin", "go-ipfs")
     if(file.exists(ipfsdir)){
       path <- Sys.getenv("PATH")
-      Sys.setenv(PATH = paste(ipfsdir, path, sep = ":"))
+      sep <- ifelse(identical(.Platform$OS.type, "windows"), ";", ":")
+      Sys.setenv(PATH = paste(normalizePath(ipfsdir), path, sep = sep))
     }
     if(has_ipfs()){
       packageStartupMessage("Use ipfs_daemon() to start the IPFS server!")
