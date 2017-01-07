@@ -29,7 +29,8 @@ daemon <- local({
 
 
 has_ipfs <- function(){
-  identical(0L, system2("ipfs", "version", stderr = FALSE))
+  out <- try(system("ipfs --version", intern = TRUE), silent = TRUE)
+  !inherits(out, "try-error")
 }
 
 ipfs_is_online <- function(){
