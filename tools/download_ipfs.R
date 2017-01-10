@@ -1,15 +1,5 @@
 # Downloads the 'ipfs' utility from: https://ipfs.io/docs/install
 # Supports Linux, OSX and Windows
-has_ipfs <- function(){
-  out <- try(system("ipfs --version", intern = TRUE), silent = TRUE)
-  !inherits(out, "try-error")
-}
-
-if(has_ipfs()){
-  cat("ipfs found on the PATH!\n")
-  quit("no")
-}
-
 if(file.exists("inst/bin/go-ipfs/ipfs") || file.exists("inst/bin/go-ipfs/ipfs.exe")){
   quit("no")
 }

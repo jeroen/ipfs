@@ -6,7 +6,7 @@
     if(file.exists(ipfsdir)){
       path <- Sys.getenv("PATH")
       sep <- ifelse(identical(.Platform$OS.type, "windows"), ";", ":")
-      Sys.setenv(PATH = paste(normalizePath(ipfsdir), path, sep = sep))
+      Sys.setenv(PATH = paste(path, normalizePath(ipfsdir), sep = sep))
     }
     if(has_ipfs()){
       packageStartupMessage("Use ipfs_daemon() to start the IPFS server!")
