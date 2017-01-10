@@ -29,7 +29,7 @@ daemon <- local({
 
 
 has_ipfs <- function(){
-  out <- try(system("ipfs --version", intern = TRUE), silent = TRUE)
+  out <- try(sys::exec_with_wait("ipfs", "--version"), silent = TRUE)
   !inherits(out, "try-error")
 }
 
