@@ -4,10 +4,15 @@
 \alias{ipfs_daemon}
 \title{IPFS daemon}
 \usage{
-ipfs_daemon(restart = FALSE)
+ipfs_daemon(restart = FALSE, background = TRUE)
 }
 \arguments{
 \item{restart}{force a restart if ipfs is already running}
+
+\item{background}{run the daemon as a background process (default). If set
+to `FALSE`, the server will block the current R session and print server
+output to the console. In this case you should use the client from a
+separate R sesssion. Useful for debugging.}
 }
 \description{
 Start and stop the ipfs server. This is automatically done when attaching

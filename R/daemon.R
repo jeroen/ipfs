@@ -1,8 +1,12 @@
 daemon <- local({
   pid <- NULL
-  ipfs_start <- function(restart = FALSE){
+  ipfs_start <- function(restart = FALSE, background = TRUE){
     if(isTRUE(restart))
       ipfs_stop()
+    if(identical(background, FALSE)){
+      message("Running ipfs in foreground. Press ESC or CTRL+C to stop")
+      return(sys::exec_wait("ipfs", c("daemon", "--init")))
+    }
     if(!is.null(pid))
       base::stop("IPFS already started. Run ipfs_daemon(restart = TRUE) to force restart", call. = FALSE)
     message("Starting IPFS. Give it a few seconds...")
@@ -49,4 +53,8 @@ ipfs_is_online <- function(){
 #' @export
 #' @rdname daemon
 #' @param restart force a restart if ipfs is already running
+#' @param background run the daemon as a background process (default). If set
+#' to `FALSE`, the server will block the current R session and print server
+#' output to the console. In this case you should use the client from a
+#' separate R sesssion. Useful for debugging.
 ipfs_daemon <- daemon$ipfs_start
