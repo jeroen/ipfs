@@ -4,7 +4,7 @@
 \alias{ipfs_daemon}
 \title{IPFS daemon}
 \usage{
-ipfs_daemon(restart = FALSE, background = TRUE)
+ipfs_daemon(restart = FALSE, background = TRUE, silent = FALSE)
 }
 \arguments{
 \item{restart}{force a restart if ipfs is already running}

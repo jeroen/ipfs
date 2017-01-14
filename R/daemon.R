@@ -1,16 +1,16 @@
 daemon <- local({
   pid <- NULL
-  ipfs_start <- function(restart = FALSE, background = TRUE){
+  ipfs_start <- function(restart = FALSE, background = TRUE, silent = FALSE){
     if(isTRUE(restart))
       ipfs_stop()
     if(identical(background, FALSE)){
       message("Running ipfs in foreground. Press ESC or CTRL+C to stop")
-      return(sys::exec_wait("ipfs", c("daemon", "--init")))
+      return(sys::exec_wait("ipfs", c("daemon", "--init"), std_out = !silent, std_err = !silent))
     }
     if(!is.null(pid))
       base::stop("IPFS already started. Run ipfs_daemon(restart = TRUE) to force restart", call. = FALSE)
     message("Starting IPFS. Give it a few seconds...")
-    pid <<- sys::exec_background("ipfs", c("daemon", "--init"))
+    pid <<- sys::exec_background("ipfs", c("daemon", "--init"), std_out = !silent, std_err = !silent)
     reg.finalizer(environment(.onAttach), function(x){
       ipfs_stop()
     }, onexit = TRUE)
