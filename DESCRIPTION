@@ -3,7 +3,7 @@ Type: Package
 Title: Connect to the Inter Planetary File System
 Version: 0.1
 Author: Jeroen Ooms
-Maintainer: Jeroen Ooms <jeroen.ooms@stat.ucla.edu>
+Maintainer: Jeroen Ooms <jeroen@berkeley.edu>
 Description: IPFS is a content-addressable, peer-to-peer hypermedia distribution
     protocol in which the nodes form a distributed file system.
 License: MIT + file LICENSE
