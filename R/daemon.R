@@ -22,7 +22,9 @@ daemon <- local({
     if(!is.null(pid)){
       cat("stopping ipfs...\n")
       tools::pskill(pid)
+      sys::exec_status(pid)
       pid <<- NULL
+      gc()
     }
   }
   environment()
