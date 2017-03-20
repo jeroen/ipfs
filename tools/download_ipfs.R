@@ -10,7 +10,7 @@ platform <- sessionInfo()$platform
 # Case of Windows
 if(grepl("mingw", platform, ignore.case = TRUE)){
   if(getRversion() < "3.3.0") setInternet2()
-  download.file("https://dist.ipfs.io/go-ipfs/v0.4.4/go-ipfs_v0.4.4_windows-386.zip", "ipfs.zip")
+  download.file("https://dist.ipfs.io/go-ipfs/v0.4.7/go-ipfs_v0.4.7_windows-386.zip", "ipfs.zip")
   dir.create("inst/bin", showWarnings = FALSE, recursive = TRUE)
   unzip("ipfs.zip",files = "go-ipfs/ipfs.exe", exdir = "inst/bin")
   unlink("ipfs.zip")
@@ -18,11 +18,11 @@ if(grepl("mingw", platform, ignore.case = TRUE)){
 }
 
 url <- if(grepl("x86_64.*darwin", platform, ignore.case = TRUE)){
-  "https://dist.ipfs.io/go-ipfs/v0.4.4/go-ipfs_v0.4.4_darwin-amd64.tar.gz"
+  "https://dist.ipfs.io/go-ipfs/v0.4.7/go-ipfs_v0.4.7_darwin-amd64.tar.gz"
 } else if(grepl("x86_64.*linux", platform, ignore.case = TRUE)){
-  "https://dist.ipfs.io/go-ipfs/v0.4.4/go-ipfs_v0.4.4_linux-amd64.tar.gz"
+  "https://dist.ipfs.io/go-ipfs/v0.4.7/go-ipfs_v0.4.7_linux-amd64.tar.gz"
 } else if(grepl("freebsd", platform, ignore.case = TRUE)){
-  "https://dist.ipfs.io/go-ipfs/v0.4.4/go-ipfs_v0.4.4_freebsd-amd64.tar.gz"
+  "https://dist.ipfs.io/go-ipfs/v0.4.7/go-ipfs_v0.4.7_freebsd-amd64.tar.gz"
 } else {
   cat("Unknown platform!")
   quit("no")
