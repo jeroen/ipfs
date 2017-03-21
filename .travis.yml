@@ -17,7 +17,7 @@ matrix:
       osx_image: xcode8.1
     - os: osx
       latex: false
-      osx_image: beta-xcode6.1
+      osx_image: beta-xcode6.4
 
 r_github_packages:
   - jeroenooms/sys
