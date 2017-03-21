@@ -21,10 +21,11 @@ daemon <- local({
   ipfs_stop <- function(){
     if(!is.null(pid)){
       cat("stopping ipfs...\n")
+      pid <<- as.numeric(pid)
+      gc() # finalizes attr(pid, "handle")
       tools::pskill(pid)
       sys::exec_status(pid)
       pid <<- NULL
-      gc()
     }
   }
   environment()
